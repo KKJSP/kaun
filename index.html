@@ -424,7 +424,7 @@
 
         function playRemoveSound() {
             if (!audioCtx) initializeAudio();
-            playTone(180, 'triangle', 0.1, 0.35); // Slightly increased base volume
+            playTone(180, 'triangle', 0.1, 0.5); // Slightly increased base volume
         }
 
         function playResultSound() {
@@ -433,7 +433,7 @@
             const times = [0, 0.07, 0.14, 0.25];
             const freqs = [base, base * 5/4, base * 3/2, base * 2];
             freqs.forEach((freq, i) => {
-                setTimeout(() => playTone(freq, 'sine', 0.15, 0.5), times[i] * 1000); // Slightly increased base volume
+                setTimeout(() => playTone(freq, 'sine', 0.15, 0.35), times[i] * 1000); // Slightly increased base volume
             });
         }
 
