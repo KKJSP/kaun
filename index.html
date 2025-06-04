@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaun! - Decision Maker</title>
+    <title>Kaun!</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f7f7f7; 
+            background-color: #f7f7f7;
             color: #333;
             overflow: hidden;
             display: flex;
@@ -117,8 +117,8 @@
 
         #horizontal-timer-bar {
             width: 0%;
-            height: 12px; 
-            background-color: #4671a5; 
+            height: 12px;
+            background-color: #4671a5;
             transition: width 2s linear; 
         }
 
@@ -254,11 +254,9 @@
         let nextParticipantId = 0;
 
         let audioCtx = null;
-        const baseFrequencies = [
+        const baseFrequencies = [ // C4 to C5
             261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25
         ];
-        let currentFrequencyIndex = 0;
-        let currentOctaveMultiplier = 1;
 
         let PREDEFINED_COLORS = [
             '#708090', '#A0522D', '#8FBC8F', '#BDB76B', '#C0C0C0',
@@ -382,7 +380,7 @@
         function playTone(frequency, type = 'sine', duration = 0.15, volume = 0.3) {
             if (!audioCtx) return;
 
-            const individualVolume = volume / 2.2; // Reduced divisor for more volume
+            const individualVolume = volume / 2.2;
 
             const freq1 = frequency;
             const freq2 = frequency * Math.pow(2, 7 / 1200);
@@ -412,19 +410,27 @@
 
         function playAddSound() {
             if (!audioCtx) initializeAudio();
-            const freq = baseFrequencies[currentFrequencyIndex % baseFrequencies.length] * currentOctaveMultiplier;
-            playTone(freq, 'sine', 0.15, 0.4); // Slightly increased base volume
-            currentFrequencyIndex++;
-            if (currentFrequencyIndex % baseFrequencies.length === 0) {
-                if (currentOctaveMultiplier === 1) currentOctaveMultiplier = 1.25;
-                else if (currentOctaveMultiplier === 1.25) currentOctaveMultiplier = 1.5;
-                else currentOctaveMultiplier = 1;
+            // Frequency now depends on the number of participants (after the current one is added)
+            const numParticipants = participants.length; // This will be 1 for the first circle, 2 for second etc.
+            const noteIndex = (numParticipants - 1) % baseFrequencies.length; // 0-indexed
+
+            let octaveMultiplier = 1;
+            const octaveCycle = Math.floor((numParticipants - 1) / baseFrequencies.length);
+
+            if (octaveCycle % 3 === 1) {
+                octaveMultiplier = 1.25;
+            } else if (octaveCycle % 3 === 2) {
+                octaveMultiplier = 1.5;
             }
+            // Default is octaveMultiplier = 1 (octaveCycle % 3 === 0)
+
+            const freq = baseFrequencies[noteIndex] * octaveMultiplier;
+            playTone(freq, 'sine', 0.15, 0.4);
         }
 
         function playRemoveSound() {
             if (!audioCtx) initializeAudio();
-            playTone(180, 'triangle', 0.1, 0.5); // Slightly increased base volume
+            playTone(180, 'triangle', 0.1, 0.5);
         }
 
         function playResultSound() {
@@ -433,7 +439,7 @@
             const times = [0, 0.07, 0.14, 0.25];
             const freqs = [base, base * 5/4, base * 3/2, base * 2];
             freqs.forEach((freq, i) => {
-                setTimeout(() => playTone(freq, 'sine', 0.15, 0.35), times[i] * 1000); // Slightly increased base volume
+                setTimeout(() => playTone(freq, 'sine', 0.15, 0.35), times[i] * 1000);
             });
         }
 
@@ -504,8 +510,6 @@
             participants = [];
             isResultShown = false;
             nextParticipantId = 0;
-            currentFrequencyIndex = 0;
-            currentOctaveMultiplier = 1;
 
             if(instant) {
                 shuffleArray(PREDEFINED_COLORS);
