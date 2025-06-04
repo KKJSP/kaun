@@ -19,6 +19,7 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
+            -webkit-tap-highlight-color: transparent; /* Disable tap highlight globally */
         }
 
         .app-title {
@@ -57,6 +58,8 @@
             font-weight: 500; 
             text-align: center;
             transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+            outline: none; /* Remove focus outline */
+            -webkit-tap-highlight-color: transparent; /* Specifically for buttons too */
         }
 
         .mode-button:hover {
@@ -98,6 +101,8 @@
             border: 1px solid #ccc;
             font-size: 0.9em;
             background-color: white;
+            outline: none; /* Remove focus outline */
+            -webkit-tap-highlight-color: transparent; /* Specifically for select too */
         }
 
 
@@ -124,6 +129,8 @@
             cursor: pointer;
             background-color: #ffffff; 
             overflow: hidden;
+            outline: none; /* Remove focus outline */
+            -webkit-tap-highlight-color: transparent; /* Specifically for click area */
         }
 
         .circle {
@@ -148,6 +155,8 @@
             box-sizing: border-box; 
             overflow-wrap: break-word; 
             text-align: center;
+            outline: none; /* Remove focus outline */
+            -webkit-tap-highlight-color: transparent; /* Specifically for circles */
         }
 
         .circle.appear {
@@ -688,7 +697,7 @@
                 floodOverlay.style.transition = 'clip-path 1s ease-in-out'; // Step 3: Apply transition
                 
                 // Step 4: Set final state to trigger animation
-                floodOverlay.style.clipPath = `circle(150% at ${centerX}px ${centerY}px)`; 
+                floodOverlay.style.clipPath = `circle(150% at ${centerX}px ${centerY}px)`;
                 floodOverlay.style.pointerEvents = 'auto'; 
 
                 participants.forEach((p, index) => {
