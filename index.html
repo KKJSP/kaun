@@ -30,12 +30,9 @@
 
         .app-title {
             text-align: center;
-            font-size: 2.2em;
-            font-weight: 300;
-            color: #333;
+            display: block;
             padding: 20px 0 15px 0;
-            letter-spacing: 0.5px;
-            background-color: #ffffff;
+            background-color: #36262E;
             border-bottom: 1px solid #e0e0e0;
             position: relative;
             z-index: 60;
@@ -76,7 +73,7 @@
         }
 
         .mode-button.active {
-            background-color: #4A5568;
+            background-color: #36262E;
             color: white;
             font-weight: 600;
         }
@@ -124,7 +121,7 @@
         #horizontal-timer-bar {
             width: 0%;
             height: 12px;
-            background-color: #4671a5;
+            background-color: #fcc53a;
             transition: width 2s linear; 
         }
 
@@ -205,7 +202,9 @@
     </style>
 </head>
 <body>
-    <div class="app-title">Kaun!</div>
+    <div class="app-title">
+      <img src="kaun-logo.png" alt="Kaun! logo" />
+    </div>
 
     <div class="header">
         <button id="selectOneBtn" class="mode-button active">Select One</button>
