@@ -425,12 +425,12 @@
             // Default is octaveMultiplier = 1 (octaveCycle % 3 === 0)
 
             const freq = baseFrequencies[noteIndex] * octaveMultiplier;
-            playTone(freq, 'sine', 0.15, 0.4);
+            playTone(freq, 'sine', 0.25, 0.4);
         }
 
         function playRemoveSound() {
             if (!audioCtx) initializeAudio();
-            playTone(180, 'triangle', 0.1, 0.5);
+            playTone(180, 'triangle', 0.2, 0.5);
         }
 
         function playResultSound() {
@@ -439,7 +439,7 @@
             const times = [0, 0.07, 0.14, 0.25];
             const freqs = [base, base * 5/4, base * 3/2, base * 2];
             freqs.forEach((freq, i) => {
-                setTimeout(() => playTone(freq, 'sine', 0.15, 0.35), times[i] * 1000);
+                setTimeout(() => playTone(freq, 'sine', 0.25, 0.35), times[i] * 1000);
             });
         }
 
