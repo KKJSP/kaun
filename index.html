@@ -24,38 +24,38 @@
 
         .app-title {
             text-align: center;
-            font-size: 2em; /* Reduced font size */
-            font-weight: 300; 
+            font-size: 2.2em;
+            font-weight: 300;
             color: #333;
-            padding: 20px 0 15px 0; /* Adjusted padding */
-            letter-spacing: 0.5px; /* Slightly reduced letter-spacing */
-            background-color: #ffffff; 
-            border-bottom: 1px solid #e0e0e0; /* Visual divider */
-            position: relative; /* For z-index to work reliably */
-            z-index: 60; /* Above flood overlay */
+            padding: 20px 0 15px 0;
+            letter-spacing: 0.5px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            z-index: 60;
         }
 
         .header {
             display: flex;
-            align-items: stretch; 
-            padding: 10px 8px; 
-            background-color: #ffffff; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
-            z-index: 55; /* Below title, above click area potentially */
-            gap: 0; 
+            align-items: stretch;
+            padding: 10px 8px;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            z-index: 55;
+            gap: 0;
         }
 
         .mode-button {
-            flex-grow: 1; 
-            flex-basis: 0; 
-            background-color: transparent; 
-            color: #555; 
-            border: none; 
-            padding: 10px 10px; 
-            border-radius: 0; 
+            flex-grow: 1;
+            flex-basis: 0;
+            background-color: transparent;
+            color: #555;
+            border: none;
+            padding: 10px 10px;
+            border-radius: 0;
             cursor: pointer;
-            font-size: 0.90em; 
-            font-weight: 500; 
+            font-size: 0.90em;
+            font-weight: 500;
             text-align: center;
             transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
             outline: none; /* Remove focus outline */
@@ -63,32 +63,32 @@
         }
 
         .mode-button:hover {
-            background-color: #f0f0f0; 
+            background-color: #f0f0f0;
         }
         .mode-button:active {
-            transform: scale(0.97); 
+            transform: scale(0.97);
         }
 
         .mode-button.active {
-            background-color: #4A5568; 
+            background-color: #4A5568;
             color: white;
             font-weight: 600;
         }
-        
+
         .menu-separator {
             width: 1px;
-            background-color: #e8e8e8; 
-            margin: 4px 0; 
+            background-color: #e8e8e8;
+            margin: 4px 0;
         }
 
         #group-options-container {
             padding: 8px;
             background-color: #f0f0f0;
-            display: none; 
+            display: none;
             text-align: center;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-            z-index: 55; /* Consistent with header */
-            position: relative; /* Ensure it's part of the stacking context */
+            z-index: 55;
+            position: relative;
         }
         #group-options-container label {
             margin-right: 8px;
@@ -108,10 +108,10 @@
 
         #horizontal-timer-container {
             width: 100%;
-            background-color: #e0e0e0; 
-            padding: 0; 
+            background-color: #e0e0e0;
+            padding: 0;
             box-sizing: border-box;
-            z-index: 55; /* Consistent */
+            z-index: 55;
             position: relative;
         }
 
@@ -127,33 +127,33 @@
             flex-grow: 1;
             position: relative;
             cursor: pointer;
-            background-color: #ffffff; 
+            background-color: #ffffff;
             overflow: hidden;
             outline: none; /* Remove focus outline */
             -webkit-tap-highlight-color: transparent; /* Specifically for click area */
         }
 
         .circle {
-            width: 100px; 
-            height: 100px; 
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1em; 
+            font-size: 1em;
             font-weight: bold;
             cursor: pointer;
-            transition: opacity 0.1s ease-out, border-color 0.2s ease-out, color 0.2s ease-out, background-color 0.2s ease-out, transform 0.1s ease-out, font-size 0.1s ease-out; 
-            border: 4px solid transparent; 
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1); 
-            transform-origin: center center; 
-            transform: translate(-50%, -50%) scale(0); 
-            opacity: 0; 
-            z-index: 10; 
-            padding: 5px; 
-            box-sizing: border-box; 
-            overflow-wrap: break-word; 
+            transition: opacity 0.1s ease-out, border-color 0.2s ease-out, color 0.2s ease-out, background-color 0.2s ease-out, transform 0.1s ease-out, font-size 0.1s ease-out;
+            border: 4px solid transparent;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transform-origin: center center;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            z-index: 10;
+            padding: 5px;
+            box-sizing: border-box;
+            overflow-wrap: break-word;
             text-align: center;
             outline: none; /* Remove focus outline */
             -webkit-tap-highlight-color: transparent; /* Specifically for circles */
@@ -168,7 +168,7 @@
 
 
         @keyframes circleAppear {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
@@ -176,11 +176,11 @@
             0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
             100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
         }
-        
+
         .circle.selected {
-            border-color: #333 !important; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-            z-index: 100; 
+            border-color: #333 !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 100;
         }
 
         #flood-overlay {
@@ -189,13 +189,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: transparent; 
-            opacity: 0; 
-            z-index: 50; /* Below title and selected circle */
-            pointer-events: none; 
-            clip-path: circle(0% at 50% 50%); 
+            background-color: transparent;
+            opacity: 0;
+            z-index: 50;
+            pointer-events: none;
+            clip-path: circle(0% at 50% 50%);
         }
-        
+
     </style>
 </head>
 <body>
@@ -234,21 +234,21 @@
         const clickArea = document.getElementById('click-area');
         const selectOneBtn = document.getElementById('selectOneBtn');
         const setOrderBtn = document.getElementById('setOrderBtn');
-        const makeGroupsBtn = document.getElementById('makeGroupsBtn'); 
-        const groupOptionsContainer = document.getElementById('group-options-container'); 
-        const groupCountSelect = document.getElementById('group-count-select'); 
+        const makeGroupsBtn = document.getElementById('makeGroupsBtn');
+        const groupOptionsContainer = document.getElementById('group-options-container');
+        const groupCountSelect = document.getElementById('group-count-select');
 
         const horizontalTimerBar = document.getElementById('horizontal-timer-bar');
         const floodOverlay = document.getElementById('flood-overlay');
 
         let currentMode = 'selectOne';
-        let selectedNumberOfGroups = 2; 
+        let selectedNumberOfGroups = 2;
         let participants = [];
-        let decisionTimer = null; 
-        let animationStartTimer = null; 
-        const TIMER_ANIMATION_DELAY = 1000; 
-        const TIMER_BAR_DURATION = 2000;   
-        const TOTAL_TIMER_DURATION = TIMER_ANIMATION_DELAY + TIMER_BAR_DURATION; 
+        let decisionTimer = null;
+        let animationStartTimer = null;
+        const TIMER_ANIMATION_DELAY = 1000;
+        const TIMER_BAR_DURATION = 2000;
+        const TOTAL_TIMER_DURATION = TIMER_ANIMATION_DELAY + TIMER_BAR_DURATION;
 
         let isResultShown = false;
         let nextParticipantId = 0;
@@ -260,18 +260,18 @@
         let currentFrequencyIndex = 0;
         let currentOctaveMultiplier = 1;
 
-        let PREDEFINED_COLORS = [ 
-            '#708090', '#A0522D', '#8FBC8F', '#BDB76B', '#C0C0C0', 
-            '#D2B48C', '#ADD8E6', '#E6E6FA', '#F5DEB3', '#CD853F', 
-            '#BC8F8F', '#9370DB', '#3A5FCD', '#6A5ACD', '#4682B4', 
+        let PREDEFINED_COLORS = [
+            '#708090', '#A0522D', '#8FBC8F', '#BDB76B', '#C0C0C0',
+            '#D2B48C', '#ADD8E6', '#E6E6FA', '#F5DEB3', '#CD853F',
+            '#BC8F8F', '#9370DB', '#3A5FCD', '#6A5ACD', '#4682B4',
             '#5F9EA0', '#D8BFD8', '#B0C4DE', '#778899', '#2F4F4F'
         ];
         let colorIndex = 0;
 
         const BEAUTIFUL_WORDS = [
-            'Aura', 'Bloom', 'Calm', 'Dream', 'Echo', 'Elixir', 'Ethereal', 'Felicity', 
-            'Flux', 'Grace', 'Halcyon', 'Idyll', 'Lullaby', 'Luminous', 'Mellow', 'Murmur', 
-            'Nebula', 'Opulent', 'Petal', 'Placid', 'Quill', 'Radiant', 'Rhythm', 'Serene', 
+            'Aura', 'Bloom', 'Calm', 'Dream', 'Echo', 'Elixir', 'Ethereal', 'Felicity',
+            'Flux', 'Grace', 'Halcyon', 'Idyll', 'Lullaby', 'Luminous', 'Mellow', 'Murmur',
+            'Nebula', 'Opulent', 'Petal', 'Placid', 'Quill', 'Radiant', 'Rhythm', 'Serene',
             'Solace', 'Sonder', 'Sonnet', 'Tranquil', 'Velvet', 'Vista', 'Whisper', 'Zephyr', 'Zenith'
         ];
         let availableWords = [];
@@ -336,7 +336,7 @@
             };
             return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
         }
-        
+
         function getLuminance(hexColor) {
             const rgb = hexToRgb(hexColor);
             if (!rgb) return 0;
@@ -346,16 +346,16 @@
         function getContrastingTextColor(hexBgColor) {
             const lum = getLuminance(hexBgColor);
             const hsl = rgbToHsl(hexToRgb(hexBgColor).r, hexToRgb(hexBgColor).g, hexToRgb(hexBgColor).b);
-            
+
             let newL;
-            if (lum > 0.55) { 
-                newL = Math.max(0, hsl.l - 0.45); 
-                 if (hsl.l < 0.2) newL = 0.1; 
-            } else { 
-                newL = Math.min(1, hsl.l + 0.45); 
-                if (hsl.l > 0.8) newL = 0.9; 
+            if (lum > 0.55) {
+                newL = Math.max(0, hsl.l - 0.45);
+                 if (hsl.l < 0.2) newL = 0.1;
+            } else {
+                newL = Math.min(1, hsl.l + 0.45);
+                if (hsl.l > 0.8) newL = 0.9;
             }
-            if (lum > 0.4 && lum < 0.6) { 
+            if (lum > 0.4 && lum < 0.6) {
                  newL = lum > 0.5 ? 0.05 : 0.95;
             }
             return hslToHex(hsl.h, hsl.s, newL);
@@ -369,37 +369,51 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-        shuffleArray(PREDEFINED_COLORS); 
-        shuffleArray(BEAUTIFUL_WORDS); 
-        availableWords = [...BEAUTIFUL_WORDS]; 
+        shuffleArray(PREDEFINED_COLORS);
+        shuffleArray(BEAUTIFUL_WORDS);
+        availableWords = [...BEAUTIFUL_WORDS];
 
         function initializeAudio() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
         }
-        
+
         function playTone(frequency, type = 'sine', duration = 0.15, volume = 0.3) {
             if (!audioCtx) return;
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            oscillator.type = type;
-            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
-            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + duration * 0.1);
-            gainNode.gain.linearRampToValueAtTime(volume * 0.7, audioCtx.currentTime + duration * 0.3);
-            gainNode.gain.setValueAtTime(volume * 0.7, audioCtx.currentTime + duration * 0.7);
-            gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + duration);
-            oscillator.start(audioCtx.currentTime);
-            oscillator.stop(audioCtx.currentTime + duration);
+
+            const individualVolume = volume / 2.2; // Reduced divisor for more volume
+
+            const freq1 = frequency;
+            const freq2 = frequency * Math.pow(2, 7 / 1200);
+            const freq3 = frequency * Math.pow(2, -7 / 1200);
+            const frequencies = [freq1, freq2, freq3];
+
+            frequencies.forEach(f => {
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                oscillator.type = type;
+                oscillator.frequency.setValueAtTime(f, audioCtx.currentTime);
+
+                gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+                gainNode.gain.linearRampToValueAtTime(individualVolume, audioCtx.currentTime + duration * 0.1);
+                gainNode.gain.linearRampToValueAtTime(individualVolume * 0.7, audioCtx.currentTime + duration * 0.3);
+                gainNode.gain.setValueAtTime(individualVolume * 0.7, audioCtx.currentTime + duration * 0.7);
+                gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + duration);
+
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + duration);
+            });
         }
 
         function playAddSound() {
             if (!audioCtx) initializeAudio();
             const freq = baseFrequencies[currentFrequencyIndex % baseFrequencies.length] * currentOctaveMultiplier;
-            playTone(freq, 'sine', 0.15, 1);
+            playTone(freq, 'sine', 0.15, 0.4); // Slightly increased base volume
             currentFrequencyIndex++;
             if (currentFrequencyIndex % baseFrequencies.length === 0) {
                 if (currentOctaveMultiplier === 1) currentOctaveMultiplier = 1.25;
@@ -410,7 +424,7 @@
 
         function playRemoveSound() {
             if (!audioCtx) initializeAudio();
-            playTone(180, 'triangle', 0.1, 1);
+            playTone(180, 'triangle', 0.1, 0.35); // Slightly increased base volume
         }
 
         function playResultSound() {
@@ -419,13 +433,13 @@
             const times = [0, 0.07, 0.14, 0.25];
             const freqs = [base, base * 5/4, base * 3/2, base * 2];
             freqs.forEach((freq, i) => {
-                setTimeout(() => playTone(freq, 'sine', 0.15, 0.7), times[i] * 1000);
+                setTimeout(() => playTone(freq, 'sine', 0.15, 0.5), times[i] * 1000); // Slightly increased base volume
             });
         }
 
         function getNextColor() {
             if (colorIndex >= PREDEFINED_COLORS.length) {
-                shuffleArray(PREDEFINED_COLORS); 
+                shuffleArray(PREDEFINED_COLORS);
                 colorIndex = 0;
             }
             const color = PREDEFINED_COLORS[colorIndex];
@@ -435,7 +449,7 @@
 
         function getNextWord() {
             if (wordIndex >= availableWords.length) {
-                shuffleArray(availableWords); 
+                shuffleArray(availableWords);
                 wordIndex = 0;
             }
             const word = availableWords[wordIndex];
@@ -455,7 +469,7 @@
             } else {
                 groupOptionsContainer.style.display = 'none';
             }
-            clearAllParticipantsAndResults(true); 
+            clearAllParticipantsAndResults(true);
         }
 
         selectOneBtn.addEventListener('click', () => switchMode('selectOne'));
@@ -464,15 +478,15 @@
 
         groupCountSelect.addEventListener('change', (event) => {
             selectedNumberOfGroups = parseInt(event.target.value);
-            clearAllParticipantsAndResults(true); 
+            clearAllParticipantsAndResults(true);
         });
 
 
         function clearAllParticipantsAndResults(instant = false) {
             participants.forEach(p => {
-                if (p.element && p.element.parentNode) { 
+                if (p.element && p.element.parentNode) {
                     if (instant) {
-                        p.element.remove(); 
+                        p.element.remove();
                     } else {
                         p.element.classList.add('disappear');
                         p.element.addEventListener('animationend', () => {
@@ -480,70 +494,70 @@
                                 p.element.remove();
                              }
                         }, {once: true});
-                        setTimeout(() => { 
+                        setTimeout(() => {
                             if(p.element.parentNode) p.element.remove();
-                        }, 150); 
+                        }, 150);
                     }
                 }
             });
-            
+
             participants = [];
-            isResultShown = false; 
+            isResultShown = false;
             nextParticipantId = 0;
             currentFrequencyIndex = 0;
             currentOctaveMultiplier = 1;
-            
-            if(instant) { 
+
+            if(instant) {
                 shuffleArray(PREDEFINED_COLORS);
                 colorIndex = 0;
-                availableWords = [...BEAUTIFUL_WORDS]; 
+                availableWords = [...BEAUTIFUL_WORDS];
                 shuffleArray(availableWords);
                 wordIndex = 0;
             }
-            
+
             if (animationStartTimer) clearTimeout(animationStartTimer);
             if (decisionTimer) clearTimeout(decisionTimer);
-            
+
             resetTimerAnimation();
-            
-            floodOverlay.style.transition = 'none'; 
+
+            floodOverlay.style.transition = 'none';
             floodOverlay.style.backgroundColor = 'transparent';
-            floodOverlay.style.opacity = '0'; 
-            floodOverlay.style.clipPath = 'circle(0% at 50% 50%)'; 
-            floodOverlay.style.pointerEvents = 'none'; 
-            clickArea.style.backgroundColor = '#ffffff'; 
+            floodOverlay.style.opacity = '0';
+            floodOverlay.style.clipPath = 'circle(0% at 50% 50%)';
+            floodOverlay.style.pointerEvents = 'none';
+            clickArea.style.backgroundColor = '#ffffff';
         }
-        
+
         clickArea.addEventListener('click', (event) => {
             if (!audioCtx) initializeAudio();
-            const clickX = event.clientX; 
+            const clickX = event.clientX;
             const clickY = event.clientY;
 
             if (event.target.classList.contains('circle')) {
-                if (isResultShown) { 
-                    clearAllParticipantsAndResults(true); 
-                    addParticipant(clickX, clickY);      
+                if (isResultShown) {
+                    clearAllParticipantsAndResults(true);
+                    addParticipant(clickX, clickY);
                     return;
                 }
                 const participantId = parseInt(event.target.dataset.id);
                 removeParticipant(participantId);
 
-            } else if (event.target === clickArea) { 
+            } else if (event.target === clickArea) {
                 if (isResultShown) {
-                    clearAllParticipantsAndResults(true); 
-                    addParticipant(clickX, clickY);      
+                    clearAllParticipantsAndResults(true);
+                    addParticipant(clickX, clickY);
                 } else {
-                    addParticipant(clickX, clickY); 
+                    addParticipant(clickX, clickY);
                 }
             }
         });
-        
+
         floodOverlay.addEventListener('click', (event) => {
             if(isResultShown) {
                 const clickX = event.clientX;
                 const clickY = event.clientY;
-                clearAllParticipantsAndResults(true); 
-                addParticipant(clickX, clickY);      
+                clearAllParticipantsAndResults(true);
+                addParticipant(clickX, clickY);
             }
         });
 
@@ -551,7 +565,7 @@
         function addParticipant(x, y) {
             if (isResultShown) {
                  console.warn("Attempted to add participant while results were shown. Clearing first.");
-                 clearAllParticipantsAndResults(true); 
+                 clearAllParticipantsAndResults(true);
             }
 
             const rect = clickArea.getBoundingClientRect();
@@ -562,25 +576,25 @@
             const word = getNextWord();
 
             const circle = document.createElement('div');
-            circle.classList.add('circle'); 
+            circle.classList.add('circle');
             circle.dataset.id = id;
             circle.style.left = `${relativeX}px`;
             circle.style.top = `${relativeY}px`;
             circle.style.backgroundColor = bgColor;
-            
+
             const textColor = getContrastingTextColor(bgColor);
             circle.style.color = textColor;
-            circle.style.borderColor = textColor; 
+            circle.style.borderColor = textColor;
 
-            circle.textContent = word; 
-            circle.style.fontSize = '1em'; 
-            
+            circle.textContent = word;
+            circle.style.fontSize = '1em';
+
             clickArea.appendChild(circle);
-            
-            void circle.offsetWidth; 
-            
-            circle.classList.add('appear'); 
-            
+
+            void circle.offsetWidth;
+
+            circle.classList.add('appear');
+
             participants.push({ id, x: relativeX, y: relativeY, element: circle, color: bgColor, word });
             playAddSound();
             startOrResetGlobalTimer();
@@ -591,14 +605,14 @@
             if (index > -1) {
                 const participant = participants[index];
                 if (participant.element && participant.element.parentNode) {
-                    participant.element.classList.remove('appear'); 
-                    participant.element.classList.add('disappear'); 
+                    participant.element.classList.remove('appear');
+                    participant.element.classList.add('disappear');
                     participant.element.addEventListener('animationend', () => {
                         if(participant.element.classList.contains('disappear') && participant.element.parentNode) {
                            participant.element.remove();
                         }
                     }, {once: true});
-                     setTimeout(() => { 
+                     setTimeout(() => {
                         if(participant.element.parentNode) participant.element.remove();
                     }, 150);
                 }
@@ -611,11 +625,11 @@
         function startOrResetGlobalTimer() {
             if (animationStartTimer) clearTimeout(animationStartTimer);
             if (decisionTimer) clearTimeout(decisionTimer);
-            
-            resetTimerAnimation(); 
 
-            if (!isResultShown) { 
-                floodOverlay.style.transition = 'none'; 
+            resetTimerAnimation();
+
+            if (!isResultShown) {
+                floodOverlay.style.transition = 'none';
                 floodOverlay.style.backgroundColor = 'transparent';
                 floodOverlay.style.opacity = '0';
                 floodOverlay.style.clipPath = 'circle(0% at 50% 50%)';
@@ -624,22 +638,22 @@
             }
 
             if (currentMode === 'makeGroups' && participants.length < selectedNumberOfGroups) {
-                return; 
+                return;
             }
              if (participants.length === 0 && (currentMode === 'selectOne' || currentMode === 'setOrder')) {
-                return; 
+                return;
             }
 
 
             animationStartTimer = setTimeout(() => {
-                horizontalTimerBar.style.width = '100%'; 
+                horizontalTimerBar.style.width = '100%';
             }, TIMER_ANIMATION_DELAY);
 
             decisionTimer = setTimeout(() => {
                 showResult();
             }, TOTAL_TIMER_DURATION);
         }
-        
+
         function resetTimerAnimation() {
             horizontalTimerBar.style.transition = 'none';
             horizontalTimerBar.style.width = '0%';
@@ -649,54 +663,53 @@
 
         function showResult() {
             if (currentMode === 'makeGroups' && participants.length < selectedNumberOfGroups) {
-                return; 
+                return;
             }
             if (participants.length === 0) return;
 
 
-            isResultShown = true; 
+            isResultShown = true;
             playResultSound();
-            resetTimerAnimation(); 
+            resetTimerAnimation();
 
             participants.forEach(p => {
-                if (!p.element || !p.element.parentNode) return; 
+                if (!p.element || !p.element.parentNode) return;
                 p.element.classList.remove('selected');
-                p.element.classList.remove('appear'); 
+                p.element.classList.remove('appear');
                 p.element.classList.remove('disappear');
-                
-                const bgColor = p.color; 
+
+                const bgColor = p.color;
                 const textColor = getContrastingTextColor(bgColor);
                 p.element.style.color = textColor;
-                p.element.style.borderColor = textColor; 
-                p.element.textContent = p.word; 
+                p.element.style.borderColor = textColor;
+                p.element.textContent = p.word;
 
                 p.element.style.transition = 'opacity 0.1s ease-out, border-color 0.2s ease-out, color 0.2s ease-out, background-color 0.2s ease-out, transform 0.1s ease-out, font-size 0.1s ease-out';
-                p.element.style.transform = 'translate(-50%, -50%) scale(1)'; 
-                p.element.style.opacity = '1'; 
-                p.element.style.fontSize = '1em'; 
-                p.element.style.backgroundColor = bgColor; 
+                p.element.style.transform = 'translate(-50%, -50%) scale(1)';
+                p.element.style.opacity = '1';
+                p.element.style.fontSize = '1em';
+                p.element.style.backgroundColor = bgColor;
             });
 
             if (currentMode === 'selectOne') {
                 const randomIndex = Math.floor(Math.random() * participants.length);
                 const selectedParticipant = participants[randomIndex];
 
-                if (!selectedParticipant || !selectedParticipant.element) return; 
+                if (!selectedParticipant || !selectedParticipant.element) return;
 
                 const selectedRect = selectedParticipant.element.getBoundingClientRect();
                 const centerX = selectedRect.left + selectedRect.width / 2;
                 const centerY = selectedRect.top + selectedRect.height / 2;
 
                 floodOverlay.style.backgroundColor = selectedParticipant.color;
-                floodOverlay.style.transition = 'none'; // Step 1: No transition for initial setup
-                floodOverlay.style.opacity = '1'; 
-                floodOverlay.style.clipPath = `circle(0% at ${centerX}px ${centerY}px)`; 
-                
-                void floodOverlay.offsetWidth; // Step 2: Force reflow
+                floodOverlay.style.transition = 'none';
+                floodOverlay.style.opacity = '1';
+                floodOverlay.style.clipPath = `circle(0% at ${centerX}px ${centerY}px)`;
 
-                floodOverlay.style.transition = 'clip-path 1s ease-in-out'; // Step 3: Apply transition
-                
-                // Step 4: Set final state to trigger animation
+                void floodOverlay.offsetWidth;
+
+                floodOverlay.style.transition = 'clip-path 1s ease-in-out';
+
                 floodOverlay.style.clipPath = `circle(150% at ${centerX}px ${centerY}px)`;
                 floodOverlay.style.pointerEvents = 'auto'; 
 
