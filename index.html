@@ -438,9 +438,8 @@
 
         function playAddSound() {
             if (!audioCtx) initializeAudio();
-            // Frequency now depends on the number of participants (after the current one is added)
-            const numParticipants = participants.length; // This will be 1 for the first circle, 2 for second etc.
-            const noteIndex = (numParticipants - 1) % baseFrequencies.length; // 0-indexed
+            const numParticipants = participants.length;
+            const noteIndex = (numParticipants - 1) % baseFrequencies.length;
 
             let octaveMultiplier = 1;
             const octaveCycle = Math.floor((numParticipants - 1) / baseFrequencies.length);
@@ -450,8 +449,6 @@
             } else if (octaveCycle % 3 === 2) {
                 octaveMultiplier = 1.5;
             }
-            // Default is octaveMultiplier = 1 (octaveCycle % 3 === 0)
-
             const freq = baseFrequencies[noteIndex] * octaveMultiplier;
             playTone(freq, 'sine', 0.25, 0.4);
         }
@@ -560,38 +557,54 @@
             clickArea.style.backgroundColor = '#ffffff';
         }
 
-        clickArea.addEventListener('click', (event) => {
+        // --- Event Handlers with Multi-touch Support ---
+        function handleInteraction(event, isTouch = false) {
+            if (isTouch) {
+                // Prevents the browser from firing a "ghost" click event after the touch.
+                event.preventDefault();
+            }
             if (!audioCtx) initializeAudio();
-            const clickX = event.clientX;
-            const clickY = event.clientY;
 
-            if (event.target.classList.contains('circle')) {
-                if (isResultShown) {
-                    clearAllParticipantsAndResults(true);
-                    addParticipant(clickX, clickY);
-                    return;
-                }
-                const participantId = parseInt(event.target.dataset.id);
-                removeParticipant(participantId);
+            // Use changedTouches for touch, or the main event for click
+            const points = isTouch ? event.changedTouches : [event];
 
-            } else if (event.target === clickArea) {
-                if (isResultShown) {
-                    clearAllParticipantsAndResults(true);
-                    addParticipant(clickX, clickY);
-                } else {
-                    addParticipant(clickX, clickY);
+            for(const point of points) {
+                const clickX = point.clientX;
+                const clickY = point.clientY;
+
+                // Determine the actual element at the point of interaction
+                const targetElement = document.elementFromPoint(clickX, clickY);
+
+                if (targetElement && targetElement.classList.contains('circle')) {
+                    if (isResultShown) {
+                        clearAllParticipantsAndResults(true);
+                        addParticipant(clickX, clickY);
+                    } else {
+                        const participantId = parseInt(targetElement.dataset.id);
+                        removeParticipant(participantId);
+                    }
+                } else if (targetElement === clickArea || targetElement === floodOverlay) {
+                    if (isResultShown) {
+                        clearAllParticipantsAndResults(true);
+                        addParticipant(clickX, clickY);
+                    } else {
+                        // Only add participant if not result shown and click is on clickArea
+                        if (targetElement === clickArea) {
+                            addParticipant(clickX, clickY);
+                        }
+                    }
                 }
             }
-        });
+        }
 
-        floodOverlay.addEventListener('click', (event) => {
-            if(isResultShown) {
-                const clickX = event.clientX;
-                const clickY = event.clientY;
-                clearAllParticipantsAndResults(true);
-                addParticipant(clickX, clickY);
-            }
-        });
+        // Listener for desktop mouse clicks
+        clickArea.addEventListener('click', (e) => handleInteraction(e, false));
+        floodOverlay.addEventListener('click', (e) => handleInteraction(e, false));
+
+        // Listener for mobile touch events
+        clickArea.addEventListener('touchstart', (e) => handleInteraction(e, true));
+        floodOverlay.addEventListener('touchstart', (e) => handleInteraction(e, true));
+        // --- End Event Handlers ---
 
 
         function addParticipant(x, y) {
