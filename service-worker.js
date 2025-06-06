@@ -10,35 +10,40 @@ const OFFLINE_URLS = [
   'manifest.json',
 ];
 
-// Install: cache the essential files
-self.addEventListener('install', event => {
+// On install, cache all files
+self.addEventListener('install', (event) => {
+  console.log('[ServiceWorker] Install');
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(OFFLINE_URLS);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(OFFLINE_URLS))
   );
+  self.skipWaiting(); // Activate new SW immediately
 });
 
-// Activate: cleanup old caches (optional for future updates)
-self.addEventListener('activate', event => {
+// On activate, clean old caches
+self.addEventListener('activate', (event) => {
+  console.log('[ServiceWorker] Activate');
   event.waitUntil(
-    caches.keys().then(keys =>
+    caches.keys().then((keys) =>
       Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
+        keys.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
         })
       )
     )
   );
+  self.clients.claim(); // Control pages immediately
 });
 
-// Fetch: serve from cache, fallback to network
-self.addEventListener('fetch', event => {
+// Serve from cache or fetch from network
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request);
+    caches.match(event.request).then((cached) => {
+      return (
+        cached ||
+        fetch(event.request).catch(() =>
+          caches.match('/index.html') // fallback for offline
+        )
+      );
     })
   );
 });
