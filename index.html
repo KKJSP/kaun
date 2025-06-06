@@ -32,6 +32,11 @@
             -webkit-tap-highlight-color: transparent; /* Disable tap highlight globally */
         }
 
+        .status-bar-filler {
+          height: env(safe-area-inset-top); /* dynamic height on notched devices */
+          background-color: #36262e;
+        }
+
         .app-title {
             justify-content: center; /* horizontal */
             align-items: center;     /* vertical */
@@ -210,6 +215,7 @@
     </style>
 </head>
 <body>
+    <div class="status-bar-filler"></div>
     <div class="app-title">
       <img src="logos/kaun-logo.png" alt="Kaun! logo" />
     </div>
@@ -244,6 +250,15 @@
 
 
     <script>
+
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+              .then(reg => console.log('Service Worker registered'))
+              .catch(err => console.error('Service Worker failed', err));
+          });
+        }
+
         const clickArea = document.getElementById('click-area');
         const selectOneBtn = document.getElementById('selectOneBtn');
         const setOrderBtn = document.getElementById('setOrderBtn');
