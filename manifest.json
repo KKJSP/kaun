@@ -2,7 +2,7 @@
   "name": "Kaun!",
   "short_name": "Kaun",
   "start_url": "index.html",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#f7f7f7",
   "theme_color": "#fcc53a",
   "icons": [
