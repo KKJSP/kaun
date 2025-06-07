@@ -455,7 +455,7 @@
             const noteIndex = (numParticipants - 1) % baseFrequencies.length;
 
             let octaveMultiplier = 1;
-            const octaveCycle = Math.floor((numParticipants) / baseFrequencies.length);
+            const octaveCycle = Math.floor((numParticipants - 1) / baseFrequencies.length);
 
             if (octaveCycle % 3 === 1) {
                 octaveMultiplier = 1.25;
