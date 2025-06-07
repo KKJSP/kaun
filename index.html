@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#fcc53a">
 
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="16x16" href="logos/favicon-16.png">
@@ -32,14 +33,14 @@
             -webkit-tap-highlight-color: transparent; /* Disable tap highlight globally */
         }
 
-        .status-bar-filler {
-          height: env(safe-area-inset-top); /* dynamic height on notched devices */
-          background-color: #36262e;
+        .element-disabled {
+            pointer-events: none;
+            touch-action: none;
         }
 
         .app-title {
-            justify-content: center; /* horizontal */
-            align-items: center;     /* vertical */
+            justify-content: center;
+            align-items: center;
             padding: 10px 0 10px 0;
             background-color: #36262e;
             position: relative;
@@ -228,7 +229,6 @@
     </style>
 </head>
 <body>
-    <div class="status-bar-filler"></div>
     <div class="app-title">
       <img src="logos/kaun-logo.png" alt="Kaun! logo" />
     </div>
@@ -452,7 +452,7 @@
 
         function playAddSound() {
             const numParticipants = participants.length;
-            const noteIndex = (numParticipants) % baseFrequencies.length;
+            const noteIndex = (numParticipants - 1) % baseFrequencies.length;
 
             let octaveMultiplier = 1;
             const octaveCycle = Math.floor((numParticipants) / baseFrequencies.length);
@@ -528,6 +528,8 @@
 
 
         function clearAllParticipantsAndResults() {
+            document.querySelectorAll('.element-disabled').forEach(el => el.remove());
+
             participants.forEach(p => {
                 instant = currentMode === 'selectOne' && isResultShown && !p.element.classList.contains('selected');
                 if (p.element && p.element.parentNode) {
@@ -535,9 +537,7 @@
                         p.element.remove();
                     } else {
                         p.element.classList.add('disappear');
-                        setTimeout(() => {
-                            if(p.element.parentNode) p.element.remove();
-                        }, 100);
+                        p.element.classList.add('element-disabled');
                     }
                 }
             });
@@ -677,9 +677,7 @@
                 if (participant.element && participant.element.parentNode) {
                     participant.element.classList.remove('appear');
                     participant.element.classList.add('disappear');
-                    setTimeout(() => {
-                        if(participant.element.parentNode) participant.element.remove();
-                    }, 100);
+                    participant.element.classList.add('element-disabled');
                 }
                 startOrResetGlobalTimer();
             }
