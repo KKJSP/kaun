@@ -99,14 +99,24 @@
         }
 
         #group-options-container {
-            padding: 8px;
             background-color: #f0f0f0;
-            display: none;
             text-align: center;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
             z-index: 55;
             position: relative;
+            overflow: hidden;
+            height: 0px;
+            transition: height 0.2s ease-in;
         }
+
+        #group-options-container .content-wrapper {
+            padding: 8px;
+        }
+
+        #group-options-container.visible {
+            height: var(--container-height);
+        }
+
         #group-options-container label {
             margin-right: 8px;
             font-size: 0.9em;
@@ -136,7 +146,7 @@
             width: 0%;
             height: 12px;
             background-color: #fcc53a;
-            transition: width 2s linear; 
+            transition: width 2s linear;
         }
 
 
@@ -242,14 +252,16 @@
     </div>
 
     <div id="group-options-container">
-        <label for="group-count-select">Number of Groups:</label>
-        <select id="group-count-select">
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-        </select>
+        <div class="content-wrapper">
+            <label for="group-count-select">Number of Groups:</label>
+            <select id="group-count-select">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
     </div>
 
     <div id="horizontal-timer-container">
@@ -509,9 +521,12 @@
             initialPrompt.style.display = 'none';
 
             if (newMode === 'makeGroups') {
-                groupOptionsContainer.style.display = 'block';
+                const scrollHeight = groupOptionsContainer.scrollHeight;
+                groupOptionsContainer.style.setProperty('--container-height', `${scrollHeight}px`);
+                groupOptionsContainer.classList.add('visible');
             } else {
-                groupOptionsContainer.style.display = 'none';
+                groupOptionsContainer.classList.remove('visible');
+                groupOptionsContainer.style.removeProperty('--container-height');
             }
             clearAllParticipantsAndResults();
             currentMode = newMode;
@@ -531,7 +546,7 @@
             document.querySelectorAll('.element-disabled').forEach(el => el.remove());
 
             participants.forEach(p => {
-                instant = currentMode === 'selectOne' && isResultShown && !p.element.classList.contains('selected');
+                const instant = currentMode === 'selectOne' && isResultShown && !p.element.classList.contains('selected');
                 if (p.element && p.element.parentNode) {
                     if (instant) {
                         p.element.remove();
