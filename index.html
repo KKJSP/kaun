@@ -314,11 +314,12 @@
         ];
 
         let PREDEFINED_COLORS = [
-            '#708090', '#A0522D', '#8FBC8F', '#BDB76B', '#C0C0C0',
-            '#D2B48C', '#ADD8E6', '#E6E6FA', '#F5DEB3', '#CD853F',
-            '#BC8F8F', '#9370DB', '#3A5FCD', '#6A5ACD', '#4682B4',
-            '#5F9EA0', '#D8BFD8', '#B0C4DE', '#778899', '#2F4F4F'
+            "#C0C0C0", "#99AABB", "#B0C4DE", "#4F6F6F", "#2F2F2F",
+            "#F5DEB3", "#D2B48C", "#BDB76B", "#CD853F", "#A0522D",
+            "#BC8F8F", "#D8BFD8", "#E6E6FA", "#9370DB", "#6A5ACD",
+            "#ADD8E6", "#1A5FAB", "#4682B4", "#5F9EA0", "#8FBC8F"
         ];
+        let CONTRAST_COLORS = ["#1A5FAB", "#F5DEB3", "#A0522D", "#E6E6FA", "#8FBC8F", "#C0C0C0"];
         let colorIndex = 0;
 
         const BEAUTIFUL_WORDS = [
@@ -834,7 +835,7 @@
                 const numGroups = selectedNumberOfGroups;
                 if (participants.length === 0) return;
 
-                let availableGroupColors = [...PREDEFINED_COLORS];
+                let availableGroupColors = [...CONTRAST_COLORS];
                 shuffleArray(availableGroupColors);
                 const groupColors = [];
                 for(let i=0; i < numGroups; i++) {
