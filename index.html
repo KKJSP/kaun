@@ -492,6 +492,9 @@
         }
 
         function getNextColor() {
+            if (currentMode === 'makeGroups') {
+                return "#2f2f2f"
+            }
             if (colorIndex >= PREDEFINED_COLORS.length) {
                 shuffleArray(PREDEFINED_COLORS);
                 colorIndex = 0;
