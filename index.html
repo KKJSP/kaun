@@ -325,6 +325,7 @@
 
         let audioCtx = null;
         let timebarOscillator = null;
+        let timebarGainNode = null;
         const baseFrequencies = [ // C4 to C5
             261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25
         ];
@@ -480,37 +481,71 @@
         }
 
         function playRisingTone() {
+            if (timebarOscillator) {
+                try {
+                    timebarOscillator.stop();
+                } catch (e) { /* already stopped */ }
+                timebarOscillator = null;
+            }
+            if (timebarGainNode) {
+                timebarGainNode.disconnect();
+                timebarGainNode = null;
+            }
+
             timebarOscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
+            timebarGainNode = audioCtx.createGain();
 
-            timebarOscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+            timebarOscillator.connect(timebarGainNode);
+            timebarGainNode.connect(audioCtx.destination);
 
-            // Initial values
             const startFreq = 80;
             const endFreq = 240;
             const startVolume = 0.00;
-            const endVolume = 0.2;
+            const endVolume = 0.3;
             const duration = TIMER_BAR_SOUND_DURATION / 1000;
 
             const now = audioCtx.currentTime;
 
             timebarOscillator.frequency.setValueAtTime(startFreq, now);
-            gainNode.gain.setValueAtTime(startVolume, now);
+            timebarGainNode.gain.setValueAtTime(startVolume, now);
             timebarOscillator.frequency.linearRampToValueAtTime(endFreq, now + duration);
-            gainNode.gain.linearRampToValueAtTime(endVolume, now + duration);
+            timebarGainNode.gain.linearRampToValueAtTime(endVolume, now + duration);
 
             timebarOscillator.start(now);
             timebarOscillator.stop(now + duration);
-            timebarOscillator.onended = () => {timebarOscillator = null;};
+            timebarOscillator.onended = () => {
+                timebarOscillator = null;
+                if (timebarGainNode) {
+                    timebarGainNode.disconnect();
+                    timebarGainNode = null;
+                }
+            };
         }
 
         function stopRisingTone() {
-            if (timebarOscillator) {
+            if (timebarOscillator && timebarGainNode && audioCtx) {
+                const now = audioCtx.currentTime;
+                const rampDownDuration = 0.05; // 50ms to ramp down
+
                 try {
-                    timebarOscillator.stop();
+                    timebarGainNode.gain.setValueAtTime(timebarGainNode.gain.value, now);
+                    timebarGainNode.gain.linearRampToValueAtTime(0, now + rampDownDuration);
+                    timebarOscillator.stop(now + rampDownDuration);
+
+                    timebarOscillator.onended = () => {
+                        if (timebarOscillator) timebarOscillator.disconnect();
+                        if (timebarGainNode) timebarGainNode.disconnect();
+                        timebarOscillator = null;
+                        timebarGainNode = null;
+                    };
                 } catch (e) {
-                    // already stopped
+                    try {
+                        if (timebarOscillator) timebarOscillator.stop();
+                    } catch (stopError) { /* already stopped */ }
+                    if (timebarOscillator) timebarOscillator.disconnect();
+                    if (timebarGainNode) timebarGainNode.disconnect();
+                    timebarOscillator = null;
+                    timebarGainNode = null;
                 }
             }
         }
@@ -802,10 +837,9 @@
                 horizontalTimerBar.style.width = '100%';
             }, TIMER_ANIMATION_DELAY);
 
-            timebarSoundTimer = setTimeout(
-                () => playRisingTone(),
-                TOTAL_TIMER_DURATION - TIMER_BAR_SOUND_DURATION
-            );
+            timebarSoundTimer = setTimeout(() => {
+                playRisingTone();
+            }, TOTAL_TIMER_DURATION - TIMER_BAR_SOUND_DURATION);
 
             decisionTimer = setTimeout(() => {
                 showResult();
