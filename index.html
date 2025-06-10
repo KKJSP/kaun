@@ -216,10 +216,24 @@
             100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
         }
 
+        @keyframes breatheEffect {
+            0%   { transform: translate(-50%, -50%) scale(1); }
+            50%  { transform: translate(-50%, -50%) scale(1.075); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
         .circle.selected {
             border-color: #333 !important;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 100;
+        }
+
+        .circle.breathing {
+            animation-name: breatheEffect;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            opacity: 1; /* Ensure circle remains visible */
         }
 
         #flood-overlay {
@@ -589,7 +603,11 @@
 
 
         function clearAllParticipantsAndResults() {
-            document.querySelectorAll('.element-disabled').forEach(el => el.remove());
+            document.querySelectorAll('.element-disabled').forEach(el => {
+                if (el.parentNode) {
+                    el.remove();
+                }
+            });
 
             participants.forEach(p => {
                 const instant = currentMode === 'selectOne' && isResultShown && !p.element.classList.contains('selected');
@@ -597,6 +615,8 @@
                     if (instant) {
                         p.element.remove();
                     } else {
+                        p.element.classList.remove('appear');
+                        p.element.classList.remove('breathing');
                         p.element.classList.add('disappear');
                         p.element.classList.add('element-disabled');
                     }
@@ -724,6 +744,13 @@
             void circle.offsetWidth;
             circle.classList.add('appear');
 
+            setTimeout(() => {
+                if (circle.classList.contains('appear') && !circle.classList.contains('disappear')) {
+                    circle.classList.remove('appear');
+                    circle.classList.add('breathing');
+                }
+            }, 100); // Corresponds to circleAppear animation duration
+
             const participantData = { id, x: relativeX, y: relativeY, element: circle, color: bgColor, word };
             participants.push(participantData);
 
@@ -739,6 +766,7 @@
                 const participant = participants.splice(index, 1)[0];
                 if (participant.element && participant.element.parentNode) {
                     participant.element.classList.remove('appear');
+                    participant.element.classList.remove('breathing');
                     participant.element.classList.add('disappear');
                     participant.element.classList.add('element-disabled');
                 }
